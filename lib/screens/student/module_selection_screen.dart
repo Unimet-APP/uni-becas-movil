@@ -465,14 +465,14 @@ class _ModuleSelectionScreenState extends State<ModuleSelectionScreen> {
                     width: 1,
                   ),
                 ),
-                child: Row(
+                child: const Row(
                   children: [
                     Icon(
                       Icons.info_outline,
                       color: AppColors.info,
                       size: 32,
                     ),
-                    const SizedBox(width: 16),
+                    SizedBox(width: 16),
                     Expanded(
                       child: Text(
                         'No tienes postulaciones activas. ¡Explora las becas disponibles y postúlate!',

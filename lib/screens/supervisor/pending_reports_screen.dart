@@ -280,7 +280,7 @@ class _ReportCard extends StatelessWidget {
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Icon(
+                        const Icon(
                           Icons.pending_actions,
                           size: 16,
                           color: AppColors.warning,
@@ -331,7 +331,7 @@ class _ReportCard extends StatelessWidget {
                 const SizedBox(height: 8),
                 Row(
                   children: [
-                    Icon(
+                    const Icon(
                       Icons.event,
                       size: 14,
                       color: AppColors.textSecondary,
@@ -369,7 +369,7 @@ class _ReportCard extends StatelessWidget {
                           ),
                         ),
                         const SizedBox(width: 4),
-                        Icon(
+                        const Icon(
                           Icons.arrow_forward_ios,
                           size: 12,
                           color: AppColors.primary,

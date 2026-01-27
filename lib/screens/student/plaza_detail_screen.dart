@@ -24,7 +24,7 @@ class PlazaDetailScreen extends StatelessWidget {
             // Header con gradiente
             Container(
               decoration: BoxDecoration(
-                gradient: LinearGradient(
+                gradient: const LinearGradient(
                   colors: [AppColors.primary, AppColors.primaryLight],
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
@@ -151,7 +151,7 @@ class PlazaDetailScreen extends StatelessWidget {
                                 child: Row(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Icon(
+                                    const Icon(
                                       Icons.check_circle,
                                       size: 18,
                                       color: AppColors.success,

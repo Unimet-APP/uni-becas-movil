@@ -456,7 +456,7 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text(
+                      const Text(
                         '¿No tienes cuenta? ',
                         style: AppTextStyles.bodyMedium,
                       ),
@@ -469,7 +469,7 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
                             ),
                           );
                         },
-                        child: Text(
+                        child: const Text(
                           'Regístrate',
                           style: TextStyle(
                             color: AppColors.primary,

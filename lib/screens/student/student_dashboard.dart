@@ -141,7 +141,7 @@ class _StudentDashboardState extends State<StudentDashboard> {
                             ),
                           ),
                           const SizedBox(width: 12),
-                          Text('Información de Beca', style: AppTextStyles.heading2),
+                          const Text('Información de Beca', style: AppTextStyles.heading2),
                         ],
                       ),
                       const SizedBox(height: 20),
@@ -253,7 +253,7 @@ class _BecaCard extends StatelessWidget {
         padding: const EdgeInsets.all(20),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16),
-          gradient: LinearGradient(
+          gradient: const LinearGradient(
             colors: [AppColors.primary, AppColors.primaryLight],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
@@ -725,7 +725,7 @@ class _SupervisorCard extends StatelessWidget {
                 Container(
                   padding: const EdgeInsets.all(16),
                   decoration: BoxDecoration(
-                    gradient: LinearGradient(
+                    gradient: const LinearGradient(
                       colors: [AppColors.primary, AppColors.primaryLight],
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,
@@ -863,7 +863,7 @@ class _QuickActionCard extends StatelessWidget {
                   ],
                 ),
               ),
-              Icon(Icons.arrow_forward_ios, size: 16, color: AppColors.textSecondary),
+              const Icon(Icons.arrow_forward_ios, size: 16, color: AppColors.textSecondary),
             ],
           ),
         ),

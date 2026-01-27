@@ -136,7 +136,7 @@ class _AdminDashboardState extends State<AdminDashboard> {
                         ],
                       ),
                       const SizedBox(height: 32),
-                      Text('Acciones Rápidas', style: AppTextStyles.heading2),
+                      const Text('Acciones Rápidas', style: AppTextStyles.heading2),
                       const SizedBox(height: 16),
                       _QuickActionCard(
                         title: 'Usuarios Pendientes',
@@ -263,7 +263,7 @@ class _QuickActionCard extends StatelessWidget {
                   ),
                 ),
               const SizedBox(width: 8),
-              Icon(Icons.arrow_forward_ios, size: 16, color: AppColors.textSecondary),
+              const Icon(Icons.arrow_forward_ios, size: 16, color: AppColors.textSecondary),
             ],
           ),
         ),

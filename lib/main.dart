@@ -53,12 +53,6 @@ class MyApp extends StatelessWidget {
           foregroundColor: Colors.white,
           elevation: 0,
         ),
-        cardTheme: CardTheme(
-          elevation: 2,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
-          ),
-        ),
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
             backgroundColor: AppColors.primary,
@@ -77,13 +71,15 @@ class MyApp extends StatelessWidget {
             borderRadius: BorderRadius.circular(8),
             borderSide: const BorderSide(color: AppColors.primary, width: 2),
           ),
-          contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+          contentPadding:
+              const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
         ),
         useMaterial3: true,
       ),
       onGenerateRoute: (settings) {
         // Manejo de deep links para reset password
-        if (settings.name != null && settings.name!.startsWith('/reset-password')) {
+        if (settings.name != null &&
+            settings.name!.startsWith('/reset-password')) {
           final uri = Uri.parse(settings.name!);
           final token = uri.queryParameters['token'];
 

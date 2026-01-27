@@ -8,6 +8,7 @@ import 'postulaciones/programa_excelencia_screen.dart';
 import 'postulaciones/formacion_docente_screen.dart';
 import 'postulaciones/ayudantia_screen.dart';
 import 'postulaciones/beca_info_screen.dart';
+import 'student/vocational/vocational_home_screen.dart';
 
 class WelcomeScreen extends StatefulWidget {
   const WelcomeScreen({super.key});
@@ -285,147 +286,230 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                           ),
                           child: ExpansionTile(
                             tilePadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                          leading: Container(
-                            padding: const EdgeInsets.all(8),
-                            decoration: BoxDecoration(
-                              color: AppColors.primary.withOpacity(0.1),
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            child: const Icon(
-                              Icons.school,
-                              color: AppColors.primary,
-                              size: 24,
-                            ),
-                          ),
-                          title: const Text(
-                            'Gestión de Becas',
-                            style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                              color: AppColors.textPrimary,
-                            ),
-                          ),
-                          subtitle: const Text(
-                            'Toca para ver opciones',
-                            style: TextStyle(fontSize: 12),
-                          ),
-                          children: [
-                            // Información de Becas (Sub-desplegable)
-                            Padding(
-                              padding: const EdgeInsets.fromLTRB(8, 0, 8, 8),
-                              child: Theme(
-                                data: Theme.of(context).copyWith(
-                                  dividerColor: Colors.transparent,
-                                ),
-                                child: ExpansionTile(
-                                tilePadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                                leading: Container(
-                                  padding: const EdgeInsets.all(8),
-                                  decoration: BoxDecoration(
-                                    color: AppColors.info.withOpacity(0.1),
-                                    borderRadius: BorderRadius.circular(8),
-                                  ),
-                                  child: const Icon(
-                                    Icons.info_outline,
-                                    color: AppColors.info,
-                                    size: 20,
-                                  ),
-                                ),
-                                title: const Text(
-                                  'Información de Becas',
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w600,
-                                    color: AppColors.textPrimary,
-                                  ),
-                                ),
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.fromLTRB(16, 8, 16, 16),
-                                    child: Column(
-                                      children: [
-                                        _buildBecaInfoCard(context, 'Ayudantía', Icons.people),
-                                        const SizedBox(height: 10),
-                                        _buildBecaInfoCard(context, 'Impacto', Icons.trending_up),
-                                        const SizedBox(height: 10),
-                                        _buildBecaInfoCard(context, 'Excelencia', Icons.emoji_events),
-                                        const SizedBox(height: 10),
-                                        _buildBecaInfoCard(context, 'Exoneración de Pago de Matrícula para Estudios del Personal e Hijos', Icons.payment),
-                                        const SizedBox(height: 10),
-                                        _buildBecaInfoCard(context, 'Formación Docente', Icons.menu_book),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                                ),
+                            leading: Container(
+                              padding: const EdgeInsets.all(8),
+                              decoration: BoxDecoration(
+                                color: AppColors.primary.withOpacity(0.1),
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              child: const Icon(
+                                Icons.school,
+                                color: AppColors.primary,
+                                size: 24,
                               ),
                             ),
+                            title: const Text(
+                              'Gestión de Becas',
+                              style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                                color: AppColors.textPrimary,
+                              ),
+                            ),
+                            subtitle: const Text(
+                              'Toca para ver opciones',
+                              style: TextStyle(fontSize: 12),
+                            ),
+                            children: [
+                              // Información de Becas (Sub-desplegable)
+                              Padding(
+                                padding: const EdgeInsets.fromLTRB(8, 0, 8, 8),
+                                child: Theme(
+                                  data: Theme.of(context).copyWith(
+                                    dividerColor: Colors.transparent,
+                                  ),
+                                  child: ExpansionTile(
+                                    tilePadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                                    leading: Container(
+                                      padding: const EdgeInsets.all(8),
+                                      decoration: BoxDecoration(
+                                        color: AppColors.info.withOpacity(0.1),
+                                        borderRadius: BorderRadius.circular(8),
+                                      ),
+                                      child: const Icon(
+                                        Icons.info_outline,
+                                        color: AppColors.info,
+                                        size: 20,
+                                      ),
+                                    ),
+                                    title: const Text(
+                                      'Información de Becas',
+                                      style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w600,
+                                        color: AppColors.textPrimary,
+                                      ),
+                                    ),
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.fromLTRB(16, 8, 16, 16),
+                                        child: Column(
+                                          children: [
+                                            _buildBecaInfoCard(context, 'Ayudantía', Icons.people),
+                                            const SizedBox(height: 10),
+                                            _buildBecaInfoCard(context, 'Impacto', Icons.trending_up),
+                                            const SizedBox(height: 10),
+                                            _buildBecaInfoCard(context, 'Excelencia', Icons.emoji_events),
+                                            const SizedBox(height: 10),
+                                            _buildBecaInfoCard(context, 'Exoneración de Pago de Matrícula para Estudios del Personal e Hijos', Icons.payment),
+                                            const SizedBox(height: 10),
+                                            _buildBecaInfoCard(context, 'Formación Docente', Icons.menu_book),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
 
-                            // Postulaciones (Sub-desplegable)
-                            Padding(
-                              padding: const EdgeInsets.fromLTRB(8, 0, 8, 16),
-                              child: Theme(
-                                data: Theme.of(context).copyWith(
-                                  dividerColor: Colors.transparent,
-                                ),
-                                child: ExpansionTile(
-                                tilePadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                                leading: Container(
-                                  padding: const EdgeInsets.all(8),
-                                  decoration: BoxDecoration(
-                                    color: AppColors.primary.withOpacity(0.1),
-                                    borderRadius: BorderRadius.circular(8),
+                              // Postulaciones (Sub-desplegable)
+                              Padding(
+                                padding: const EdgeInsets.fromLTRB(8, 0, 8, 16),
+                                child: Theme(
+                                  data: Theme.of(context).copyWith(
+                                    dividerColor: Colors.transparent,
                                   ),
-                                  child: const Icon(
-                                    Icons.description,
-                                    color: AppColors.primary,
-                                    size: 20,
+                                  child: ExpansionTile(
+                                    tilePadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                                    leading: Container(
+                                      padding: const EdgeInsets.all(8),
+                                      decoration: BoxDecoration(
+                                        color: AppColors.primary.withOpacity(0.1),
+                                        borderRadius: BorderRadius.circular(8),
+                                      ),
+                                      child: const Icon(
+                                        Icons.description,
+                                        color: AppColors.primary,
+                                        size: 20,
+                                      ),
+                                    ),
+                                    title: const Text(
+                                      'Postulaciones',
+                                      style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w600,
+                                        color: AppColors.textPrimary,
+                                      ),
+                                    ),
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.fromLTRB(16, 8, 16, 16),
+                                        child: Column(
+                                          children: [
+                                            _buildPostulacionCard(
+                                              context,
+                                              'Programa de Excelencia',
+                                              'Becas por excelencia académica, deportiva, artística y más',
+                                              Icons.emoji_events,
+                                              const ProgramaExcelenciaScreen(),
+                                            ),
+                                            const SizedBox(height: 14),
+                                            _buildPostulacionCard(
+                                              context,
+                                              'Beca de Formación Docente',
+                                              'Apoyo para estudiantes en formación docente',
+                                              Icons.menu_book,
+                                              const FormacionDocenteScreen(),
+                                            ),
+                                            const SizedBox(height: 14),
+                                            _buildPostulacionCard(
+                                              context,
+                                              'Programa de Ayudantía',
+                                              'Oportunidades de ayudantías en diferentes áreas',
+                                              Icons.people,
+                                              const AyudantiaScreen(),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ),
-                                title: const Text(
-                                  'Postulaciones',
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w600,
-                                    color: AppColors.textPrimary,
-                                  ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+
+                      // Acceso rápido a Orientación Vocacional
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(24, 8, 24, 0),
+                        child: GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              ScaleFadePageRoute(
+                                page: const VocationalHomeScreen(),
+                              ),
+                            );
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                              gradient: const LinearGradient(
+                                begin: Alignment.topLeft,
+                                end: Alignment.bottomRight,
+                                colors: [AppColors.info, AppColors.primaryLight],
+                              ),
+                              borderRadius: BorderRadius.circular(14),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: AppColors.info.withOpacity(0.3),
+                                  blurRadius: 10,
+                                  offset: const Offset(0, 4),
                                 ),
+                              ],
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.all(18),
+                              child: Row(
                                 children: [
-                                  Padding(
-                                    padding: const EdgeInsets.fromLTRB(16, 8, 16, 16),
+                                  Container(
+                                    padding: const EdgeInsets.all(14),
+                                    decoration: BoxDecoration(
+                                      color: Colors.white.withOpacity(0.25),
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                    child: const Icon(
+                                      Icons.psychology_alt_outlined,
+                                      size: 28,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                  const SizedBox(width: 16),
+                                  Expanded(
                                     child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      mainAxisAlignment: MainAxisAlignment.center,
                                       children: [
-                                        _buildPostulacionCard(
-                                          context,
-                                          'Programa de Excelencia',
-                                          'Becas por excelencia académica, deportiva, artística y más',
-                                          Icons.emoji_events,
-                                          const ProgramaExcelenciaScreen(),
+                                        const Text(
+                                          'Orientación Vocacional',
+                                          style: TextStyle(
+                                            fontSize: 17,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.white,
+                                          ),
                                         ),
-                                        const SizedBox(height: 14),
-                                        _buildPostulacionCard(
-                                          context,
-                                          'Beca de Formación Docente',
-                                          'Apoyo para estudiantes en formación docente',
-                                          Icons.menu_book,
-                                          const FormacionDocenteScreen(),
-                                        ),
-                                        const SizedBox(height: 14),
-                                        _buildPostulacionCard(
-                                          context,
-                                          'Programa de Ayudantía',
-                                          'Oportunidades de ayudantías en diferentes áreas',
-                                          Icons.people,
-                                          const AyudantiaScreen(),
+                                        const SizedBox(height: 3),
+                                        Text(
+                                          'Explora carreras y realiza tu diagnóstico vocacional con apoyo de IA.',
+                                          style: TextStyle(
+                                            fontSize: 13,
+                                            color: Colors.white.withOpacity(0.9),
+                                          ),
+                                          maxLines: 2,
+                                          overflow: TextOverflow.ellipsis,
                                         ),
                                       ],
                                     ),
                                   ),
+                                  Icon(
+                                    Icons.arrow_forward_ios,
+                                    color: Colors.white.withOpacity(0.7),
+                                    size: 18,
+                                  ),
                                 ],
-                                ),
                               ),
                             ),
-                          ],
                           ),
                         ),
                       ),

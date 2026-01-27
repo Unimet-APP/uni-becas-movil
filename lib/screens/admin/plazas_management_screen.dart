@@ -58,7 +58,7 @@ class _PlazasManagementScreenState extends State<PlazasManagementScreen> {
                   children: [
                     Expanded(
                       child: DropdownButtonFormField<String>(
-                        value: _selectedEstado,
+                        initialValue: _selectedEstado,
                         decoration: InputDecoration(
                           labelText: 'Estado',
                           prefixIcon: const Icon(Icons.filter_list),
@@ -88,7 +88,7 @@ class _PlazasManagementScreenState extends State<PlazasManagementScreen> {
                     const SizedBox(width: 12),
                     Expanded(
                       child: DropdownButtonFormField<String>(
-                        value: _selectedDepartamento,
+                        initialValue: _selectedDepartamento,
                         decoration: InputDecoration(
                           labelText: 'Departamento',
                           prefixIcon: const Icon(Icons.business),

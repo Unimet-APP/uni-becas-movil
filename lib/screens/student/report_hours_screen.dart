@@ -81,7 +81,7 @@ class _ReportHoursScreenState extends State<ReportHoursScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('Período Académico', style: AppTextStyles.heading3),
+                      const Text('Período Académico', style: AppTextStyles.heading3),
                       const SizedBox(height: 8),
                       Text(
                         currentPeriod.periodoAcademico,
@@ -102,10 +102,10 @@ class _ReportHoursScreenState extends State<ReportHoursScreen> {
                 ),
               ),
               const SizedBox(height: 24),
-              Text('Selecciona la Semana', style: AppTextStyles.heading3),
+              const Text('Selecciona la Semana', style: AppTextStyles.heading3),
               const SizedBox(height: 12),
               DropdownButtonFormField<int>(
-                value: enabledWeeks.contains(_selectedWeek) ? _selectedWeek : enabledWeeks.first,
+                initialValue: enabledWeeks.contains(_selectedWeek) ? _selectedWeek : enabledWeeks.first,
                 decoration: InputDecoration(
                   labelText: 'Semana',
                   prefixIcon: const Icon(Icons.calendar_today, color: AppColors.primary),
@@ -232,11 +232,11 @@ class _ReportHoursScreenState extends State<ReportHoursScreen> {
                         showDialog(
                           context: context,
                           builder: (context) => AlertDialog(
-                            title: Row(
+                            title: const Row(
                               children: [
-                                const Icon(Icons.check_circle, color: AppColors.success),
-                                const SizedBox(width: 8),
-                                const Text('Reporte Enviado'),
+                                Icon(Icons.check_circle, color: AppColors.success),
+                                SizedBox(width: 8),
+                                Text('Reporte Enviado'),
                               ],
                             ),
                             content: const Text(

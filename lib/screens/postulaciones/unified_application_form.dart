@@ -50,7 +50,7 @@ class _UnifiedApplicationFormState extends State<UnifiedApplicationForm> {
   bool _mostrarDatosOpcionales = false;
 
   // Archivos seleccionados
-  Map<String, File> _archivosSeleccionados = {};
+  final Map<String, File> _archivosSeleccionados = {};
 
   // Loading
   bool _isLoading = false;
@@ -336,7 +336,7 @@ class _UnifiedApplicationFormState extends State<UnifiedApplicationForm> {
                       SizedBox(
                         width: 80,
                         child: DropdownButtonFormField<String>(
-                          value: _tipoCedula,
+                          initialValue: _tipoCedula,
                           decoration: const InputDecoration(
                             labelText: 'Tipo',
                             border: OutlineInputBorder(),
@@ -425,7 +425,7 @@ class _UnifiedApplicationFormState extends State<UnifiedApplicationForm> {
                   const SizedBox(height: 16),
 
                   DropdownButtonFormField<String>(
-                    value: _estadoCivil,
+                    initialValue: _estadoCivil,
                     decoration: const InputDecoration(
                       labelText: 'Estado Civil',
                       border: OutlineInputBorder(),
@@ -449,7 +449,7 @@ class _UnifiedApplicationFormState extends State<UnifiedApplicationForm> {
                   const SizedBox(height: 16),
 
                   DropdownButtonFormField<String>(
-                    value: _tipoPostulante,
+                    initialValue: _tipoPostulante,
                     decoration: const InputDecoration(
                       labelText: 'Tipo de Postulante',
                       border: OutlineInputBorder(),
@@ -479,7 +479,7 @@ class _UnifiedApplicationFormState extends State<UnifiedApplicationForm> {
                   const SizedBox(height: 16),
 
                   DropdownButtonFormField<String>(
-                    value: _carrera,
+                    initialValue: _carrera,
                     decoration: const InputDecoration(
                       labelText: 'Carrera',
                       border: OutlineInputBorder(),

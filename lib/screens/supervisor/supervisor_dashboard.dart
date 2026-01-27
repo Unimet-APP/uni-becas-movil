@@ -113,7 +113,7 @@ class _SupervisorDashboardState extends State<SupervisorDashboard> {
                           const SizedBox(height: 24),
 
                           // Estadísticas principales
-                          Text('Resumen', style: AppTextStyles.heading2),
+                          const Text('Resumen', style: AppTextStyles.heading2),
                           const SizedBox(height: 16),
                           GridView.count(
                             crossAxisCount: 2,
@@ -161,7 +161,7 @@ class _SupervisorDashboardState extends State<SupervisorDashboard> {
 
                           // Plaza asignada
                           if (supervisorProvider.plazaAsignada != null) ...[
-                            Text('Plaza Asignada', style: AppTextStyles.heading2),
+                            const Text('Plaza Asignada', style: AppTextStyles.heading2),
                             const SizedBox(height: 16),
                             _PlazaAsignadaCard(
                               plaza: supervisorProvider.plazaAsignada!,
@@ -173,7 +173,7 @@ class _SupervisorDashboardState extends State<SupervisorDashboard> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text('Mis Ayudantes', style: AppTextStyles.heading2),
+                              const Text('Mis Ayudantes', style: AppTextStyles.heading2),
                               TextButton(
                                 onPressed: () {
                                   Navigator.push(

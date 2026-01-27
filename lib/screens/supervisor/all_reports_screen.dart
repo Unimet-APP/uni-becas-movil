@@ -480,7 +480,7 @@ class _ReportCard extends StatelessWidget {
                           ),
                         ),
                         const SizedBox(width: 4),
-                        Icon(
+                        const Icon(
                           Icons.arrow_forward_ios,
                           size: 12,
                           color: AppColors.primary,

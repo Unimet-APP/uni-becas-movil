@@ -126,7 +126,7 @@ class _ReportCardState extends State<ReportCard>
                 children: [
                   Row(
                     children: [
-                      Icon(
+                      const Icon(
                         Icons.calendar_today,
                         size: 18,
                         color: AppColors.textSecondary,
@@ -171,7 +171,7 @@ class _ReportCardState extends State<ReportCard>
               const SizedBox(height: 12),
               Row(
                 children: [
-                  Icon(
+                  const Icon(
                     Icons.access_time,
                     size: 18,
                     color: AppColors.primary,

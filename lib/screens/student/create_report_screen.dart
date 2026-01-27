@@ -230,7 +230,7 @@ class _CreateReportScreenState extends State<CreateReportScreen> {
                   // Selector de Semana (solo semanas habilitadas)
                   if (currentPeriod != null && currentPeriod.semanasHabilitadas.isNotEmpty)
                     DropdownButtonFormField<int>(
-                      value: _selectedWeek,
+                      initialValue: _selectedWeek,
                       decoration: InputDecoration(
                         labelText: 'Semanas Disponibles',
                         prefixIcon: const Icon(Icons.event, color: AppColors.primary),
@@ -269,10 +269,10 @@ class _CreateReportScreenState extends State<CreateReportScreen> {
                         color: AppColors.warning.withOpacity(0.1),
                         borderRadius: BorderRadius.circular(8),
                       ),
-                      child: Row(
+                      child: const Row(
                         children: [
-                          const Icon(Icons.warning, color: AppColors.warning),
-                          const SizedBox(width: 12),
+                          Icon(Icons.warning, color: AppColors.warning),
+                          SizedBox(width: 12),
                           Expanded(
                             child: Text(
                               'No hay semanas habilitadas para reportar en este momento',

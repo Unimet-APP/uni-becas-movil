@@ -150,7 +150,7 @@ class _AssignBecarioScreenState extends State<AssignBecarioScreen> {
                                 value: '${response.plaza.totalBloques} bloques',
                               ),
                               const SizedBox(height: 12),
-                              Text(
+                              const Text(
                                 'Horarios de la Plaza:',
                                 style: AppTextStyles.heading3,
                               ),
@@ -205,7 +205,7 @@ class _AssignBecarioScreenState extends State<AssignBecarioScreen> {
                       const SizedBox(height: 16),
 
                       // Lista de becarios compatibles
-                      Text(
+                      const Text(
                         'Selecciona un estudiante para asignar:',
                         style: AppTextStyles.heading2,
                       ),

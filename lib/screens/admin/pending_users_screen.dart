@@ -21,7 +21,7 @@ class PendingUsersScreen extends StatelessWidget {
       body: provider.isLoading
           ? const Center(child: CircularProgressIndicator())
           : provider.pendingUsers.isEmpty
-              ? Center(
+              ? const Center(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -30,7 +30,7 @@ class PendingUsersScreen extends StatelessWidget {
                         size: 80,
                         color: AppColors.success,
                       ),
-                      const SizedBox(height: 16),
+                      SizedBox(height: 16),
                       Text(
                         'No hay usuarios pendientes',
                         style: AppTextStyles.heading2,
@@ -97,7 +97,7 @@ class _UserCard extends StatelessWidget {
             const SizedBox(height: 16),
             Row(
               children: [
-                Icon(Icons.badge, size: 16, color: AppColors.textSecondary),
+                const Icon(Icons.badge, size: 16, color: AppColors.textSecondary),
                 const SizedBox(width: 8),
                 Text('Cédula: ${user.cedula}', style: AppTextStyles.bodySmall),
               ],
@@ -105,7 +105,7 @@ class _UserCard extends StatelessWidget {
             const SizedBox(height: 8),
             Row(
               children: [
-                Icon(Icons.work, size: 16, color: AppColors.textSecondary),
+                const Icon(Icons.work, size: 16, color: AppColors.textSecondary),
                 const SizedBox(width: 8),
                 Text('Rol: ${user.role}', style: AppTextStyles.bodySmall),
               ],

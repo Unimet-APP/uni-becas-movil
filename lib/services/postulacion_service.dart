@@ -162,7 +162,7 @@ class PostulacionService {
         return [];
       }
       // Re-lanzar el error para que se maneje en el UI
-      throw e;
+      rethrow;
     } catch (e) {
       print('❌ Error general verificando postulaciones: $e');
       rethrow;

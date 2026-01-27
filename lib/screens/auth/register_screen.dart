@@ -229,7 +229,7 @@ class _RegisterScreenState extends State<RegisterScreen>
                                           ],
                                         ),
                                         child: DropdownButtonFormField<String>(
-                                          value: _tipoCedula,
+                                          initialValue: _tipoCedula,
                                           decoration: InputDecoration(
                                             labelText: 'Tipo',
                                             contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 14),
@@ -434,7 +434,7 @@ class _RegisterScreenState extends State<RegisterScreen>
                                           ],
                                         ),
                                         child: DropdownButtonFormField<String>(
-                                          value: _tipoCedula,
+                                          initialValue: _tipoCedula,
                                           decoration: InputDecoration(
                                             labelText: 'Tipo',
                                             contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 14),
@@ -832,7 +832,7 @@ class _RegisterScreenState extends State<RegisterScreen>
         ],
       ),
       child: DropdownButtonFormField<T>(
-        value: value,
+        initialValue: value,
         decoration: InputDecoration(
           labelText: label,
           prefixIcon: Icon(icon, color: AppColors.primary),

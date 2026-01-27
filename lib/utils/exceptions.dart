@@ -7,7 +7,7 @@ class ApiException implements Exception {
 }
 
 class ValidationException extends ApiException {
-  ValidationException(String message) : super(message);
+  ValidationException(super.message);
 }
 
 class UnauthorizedException extends ApiException {
@@ -16,17 +16,17 @@ class UnauthorizedException extends ApiException {
 }
 
 class ForbiddenException extends ApiException {
-  ForbiddenException(String message) : super(message);
+  ForbiddenException(super.message);
 }
 
 class NotFoundException extends ApiException {
-  NotFoundException(String message) : super(message);
+  NotFoundException(super.message);
 }
 
 class ServerException extends ApiException {
-  ServerException(String message) : super(message);
+  ServerException(super.message);
 }
 
 class NetworkException extends ApiException {
-  NetworkException(String message) : super(message);
+  NetworkException(super.message);
 }

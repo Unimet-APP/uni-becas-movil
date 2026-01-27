@@ -417,7 +417,7 @@ class _ReportCard extends StatelessWidget {
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Icon(
+                      const Icon(
                         Icons.info_outline,
                         size: 18,
                         color: AppColors.error,
@@ -460,7 +460,7 @@ class _ReportCard extends StatelessWidget {
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Icon(
+                      const Icon(
                         Icons.comment,
                         size: 18,
                         color: AppColors.success,
@@ -521,7 +521,7 @@ class _ReportCard extends StatelessWidget {
                             ),
                           ),
                           const SizedBox(width: 8),
-                          Icon(
+                          const Icon(
                             Icons.arrow_forward_ios,
                             size: 14,
                             color: AppColors.primary,

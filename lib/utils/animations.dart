@@ -77,13 +77,13 @@ class AnimatedListItem extends StatefulWidget {
   final Curve curve;
 
   const AnimatedListItem({
-    Key? key,
+    super.key,
     required this.child,
     required this.index,
     this.delay = const Duration(milliseconds: 50),
     this.duration = const Duration(milliseconds: 500),
     this.curve = Curves.easeOutCubic,
-  }) : super(key: key);
+  });
 
   @override
   State<AnimatedListItem> createState() => _AnimatedListItemState();
@@ -148,12 +148,12 @@ class AnimatedButton extends StatefulWidget {
   final Duration duration;
 
   const AnimatedButton({
-    Key? key,
+    super.key,
     required this.child,
     this.onPressed,
     this.scaleAmount = 0.97,
     this.duration = const Duration(milliseconds: 100),
-  }) : super(key: key);
+  });
 
   @override
   State<AnimatedButton> createState() => _AnimatedButtonState();
@@ -211,12 +211,12 @@ class ShimmerLoading extends StatefulWidget {
   final Color highlightColor;
 
   const ShimmerLoading({
-    Key? key,
+    super.key,
     required this.child,
     required this.isLoading,
     this.baseColor = const Color(0xFFE0E0E0),
     this.highlightColor = const Color(0xFFF5F5F5),
-  }) : super(key: key);
+  });
 
   @override
   State<ShimmerLoading> createState() => _ShimmerLoadingState();
