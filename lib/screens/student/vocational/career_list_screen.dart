@@ -9,7 +9,7 @@ import '../../../utils/constants.dart';
 import 'career_detail_screen.dart';
 
 class CareerListScreen extends StatefulWidget {
-  const CareerListScreen({Key? key}) : super(key: key);
+  const CareerListScreen({super.key});
 
   @override
   State<CareerListScreen> createState() => _CareerListScreenState();
@@ -157,9 +157,8 @@ class _CareerCard extends StatelessWidget {
   final Career career;
 
   const _CareerCard({
-    Key? key,
     required this.career,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

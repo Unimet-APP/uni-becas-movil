@@ -7,9 +7,9 @@ class CareerDetailScreen extends StatelessWidget {
   final Career career;
 
   const CareerDetailScreen({
-    Key? key,
+    super.key,
     required this.career,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

@@ -3,7 +3,7 @@ import 'career_list_screen.dart'; // cuando la tengas
 // Importarás luego otras screens: test, perfil, etc.
 
 class VocationalHomeScreen extends StatelessWidget {
-  const VocationalHomeScreen({Key? key}) : super(key: key);
+  const VocationalHomeScreen({super.key});
 
   void _goTo(BuildContext context, Widget screen) {
     Navigator.of(context).push(
@@ -101,7 +101,7 @@ class VocationalHomeScreen extends StatelessWidget {
               icon: Icons.menu_book,
               color: Colors.blue,
               onTap: () {
-                _goTo(context, CareerListScreen());
+                _goTo(context, const CareerListScreen());
               },
             ),
             const SizedBox(height: 12),
@@ -159,7 +159,6 @@ class _ModuleCard extends StatelessWidget {
   final VoidCallback onTap;
 
   const _ModuleCard({
-    Key? key,
     required this.title,
     required this.subtitle,
     required this.chip,
@@ -167,7 +166,7 @@ class _ModuleCard extends StatelessWidget {
     required this.color,
     this.textOnDark = false,
     required this.onTap,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
