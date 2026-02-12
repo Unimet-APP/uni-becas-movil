@@ -13,6 +13,7 @@ import 'historial_screen.dart';
 import 'perfil_vocacional_screen.dart';
 import '../student/vocational/career_list_screen.dart';
 import '../postulaciones/postulaciones_main_screen.dart';
+import 'chatbot_vocacional_screen.dart';
 
 // ─── Dashboard principal del aspirante ────────────────────────────────────────
 
@@ -154,6 +155,15 @@ class _HomeTabState extends State<_HomeTab> {
                 icon: Icons.psychology,
                 color: Colors.deepPurple,
                 onTap: () => _goTo(const SelectTestScreen()),
+              ),
+              const SizedBox(height: 10),
+              _DashModuleCard(
+                title: 'Chatbot vocacional',
+                subtitle: 'Chat, consultas y recomendaciones con IA',
+                chip: 'Inteligencia Artificial',
+                icon: Icons.smart_toy_outlined,
+                color: Colors.indigo,
+                onTap: () => _goTo(const ChatbotVocacionalScreen()),
               ),
               const SizedBox(height: 10),
               _DashModuleCard(

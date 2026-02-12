@@ -546,6 +546,69 @@ class VocationalService {
     }
   }
 
+  // ─── LLM / Chatbot vocacional ─────────────────────────────────────────────
+
+  /// Chat conversacional — POST /v1/llm/chat
+  Future<String> chatLLM(
+    List<Map<String, String>> mensajes, {
+    Map<String, dynamic>? contexto,
+  }) async {
+    try {
+      final response = await _client.dio.post('/v1/llm/chat', data: {
+        'mensajes': mensajes,
+        if (contexto != null) 'contexto': contexto,
+      });
+      final d = response.data;
+      if (d is Map) {
+        return (d['data']?['respuesta'] ?? d['respuesta'] ?? d['message'] ?? '')
+            .toString();
+      }
+      return d?.toString() ?? '';
+    } on DioException catch (e) {
+      throw _client.handleError(e);
+    }
+  }
+
+  /// Consulta puntual — POST /v1/llm/consulta
+  Future<String> consultaLLM(String prompt, {Map<String, dynamic>? context}) async {
+    try {
+      final response = await _client.dio.post('/v1/llm/consulta', data: {
+        'prompt': prompt,
+        if (context != null) 'context': context,
+      });
+      final d = response.data;
+      if (d is Map) {
+        return (d['data']?['respuesta'] ?? d['respuesta'] ?? d['message'] ?? '')
+            .toString();
+      }
+      return d?.toString() ?? '';
+    } on DioException catch (e) {
+      throw _client.handleError(e);
+    }
+  }
+
+  /// Recomendaciones IA — POST /v1/llm/recomendaciones
+  Future<Map<String, dynamic>> generarRecomendaciones({
+    required Map<String, dynamic> perfilEstudiante,
+    required List<Map<String, String>> carrerasDisponibles,
+  }) async {
+    try {
+      final response = await _client.dio.post('/v1/llm/recomendaciones', data: {
+        'perfilEstudiante': perfilEstudiante,
+        'carrerasDisponibles': carrerasDisponibles,
+      });
+      final d = response.data;
+      if (d is Map) {
+        final inner = d['data'];
+        if (inner is Map) return inner as Map<String, dynamic>;
+        return d as Map<String, dynamic>;
+      }
+      return {};
+    } on DioException catch (e) {
+      throw _client.handleError(e);
+    }
+  }
+
   // ─── Perfil auth ────────────────────────────────────────────────────────────
 
   Future<Map<String, dynamic>> getUserProfile() async {
