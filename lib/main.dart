@@ -7,8 +7,9 @@ import 'providers/admin_provider.dart';
 import 'screens/welcome_screen.dart';
 import 'screens/admin/admin_dashboard.dart';
 import 'screens/supervisor/supervisor_dashboard.dart';
-import 'screens/student/module_selection_screen.dart';
 import 'screens/auth/reset_password_screen.dart';
+import 'screens/vocational/dashboard_aspirante_screen.dart';
+import 'screens/vocational/dashboard_especialista_screen.dart';
 import 'utils/constants.dart';
 
 void main() {
@@ -111,14 +112,17 @@ class MyApp extends StatelessWidget {
               case Roles.supervisorLaboral:
                 return const SupervisorDashboard();
               case Roles.student:
-                // Los estudiantes van primero a ModuleSelectionScreen
-                // Esta pantalla verificará si tienen beca activa o postulaciones
-                return const ModuleSelectionScreen();
+              case Roles.aspirant:
+                return const DashboardAspiranteScreen();
+              case 'orientador':
+              case 'especialista':
+              case 'orientacion':
+                return const DashboardEspecialistaScreen();
               case Roles.mentor:
-                return const SupervisorDashboard(); // Usar mismo dashboard por ahora
+                return const SupervisorDashboard();
               case Roles.directorArea:
               case Roles.capitalHumano:
-                return const AdminDashboard(); // Usar admin dashboard por ahora
+                return const AdminDashboard();
               default:
                 print('⚠️ Unknown role: $role, redirecting to welcome');
                 return const WelcomeScreen();

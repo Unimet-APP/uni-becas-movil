@@ -41,9 +41,16 @@ class Career {
       jobField: json['job_field']?.toString(),
       duration: json['duration']?.toString(),
       modality: json['modality']?.toString(),
+      // Support is_active (snake) and isActive (camel); default true if absent
       isActive: json['is_active'] is bool
           ? json['is_active'] as bool
-          : json['is_active']?.toString() == 'true' || json['is_active'] == 1,
+          : json['isActive'] is bool
+              ? json['isActive'] as bool
+              : json['is_active'] != null
+                  ? (json['is_active'].toString() == 'true' || json['is_active'] == 1)
+                  : json['isActive'] != null
+                      ? (json['isActive'].toString() == 'true' || json['isActive'] == 1)
+                      : true, // absent → assume active
     );
   }
 

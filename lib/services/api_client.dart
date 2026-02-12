@@ -3,7 +3,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import '../utils/exceptions.dart';
 
 class ApiClient {
-  static const String baseUrl = 'https://srodriguez.intelcondev.org/api';
+  static const String baseUrl = 'http://localhost:3001/API';
   late Dio _dio;
   final FlutterSecureStorage _storage = const FlutterSecureStorage();
 
@@ -37,12 +37,14 @@ class ApiClient {
         return handler.next(options);
       },
       onResponse: (response, handler) {
-        print('✅ RESPONSE[${response.statusCode}] => PATH: ${response.requestOptions.path}');
+        print(
+            '✅ RESPONSE[${response.statusCode}] => PATH: ${response.requestOptions.path}');
         print('📥 Data: ${response.data}');
         return handler.next(response);
       },
       onError: (DioException error, handler) async {
-        print('❌ ERROR[${error.response?.statusCode}] => PATH: ${error.requestOptions.path}');
+        print(
+            '❌ ERROR[${error.response?.statusCode}] => PATH: ${error.requestOptions.path}');
         print('❌ Message: ${error.message}');
         print('❌ Response: ${error.response?.data}');
 
