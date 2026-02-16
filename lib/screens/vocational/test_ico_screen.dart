@@ -17,17 +17,24 @@ class TestIcoScreen extends StatefulWidget {
 }
 
 class _TestIcoScreenState extends State<TestIcoScreen> {
+  static const _opcionesPorDefecto = ['Frecuentemente', 'A veces', 'Nunca'];
+
   final VocationalService _service = VocationalService();
   int _current = 0;
-  final Map<String, bool> _respuestas = {};
-  bool? _seleccionada;
+  final Map<String, String> _respuestas = {};
+  String? _seleccionada;
   bool _enviando = false;
 
   VocationalQuestion get _pregunta => widget.preguntas[_current];
   double get _progreso =>
       widget.preguntas.isEmpty ? 0 : (_current + 1) / widget.preguntas.length;
 
-  void _onSel(bool valor) => setState(() => _seleccionada = valor);
+  List<String> get _opciones =>
+      _pregunta.opcionesRespuesta.isNotEmpty
+          ? _pregunta.opcionesRespuesta
+          : _opcionesPorDefecto;
+
+  void _onSel(String valor) => setState(() => _seleccionada = valor);
 
   void _avanzar() {
     if (_seleccionada == null) return;
@@ -121,20 +128,13 @@ class _TestIcoScreenState extends State<TestIcoScreen> {
                       color: AppColors.textPrimary,
                       height: 1.3)),
               const SizedBox(height: 32),
-              // Solo Sí / No
-              SiNoButton(
-                  label: 'Sí',
-                  value: true,
-                  selected: _seleccionada == true,
-                  color: AppColors.success,
-                  onTap: () => _onSel(true)),
-              const SizedBox(height: 14),
-              SiNoButton(
-                  label: 'No',
-                  value: false,
-                  selected: _seleccionada == false,
-                  color: AppColors.error,
-                  onTap: () => _onSel(false)),
+              // Opciones Likert (Frecuentemente / A veces / Nunca o desde API)
+              ..._opciones.map((opcion) => OpcionRadio(
+                    opcion: opcion,
+                    selected: _seleccionada == opcion,
+                    accentColor: AppColors.primary,
+                    onTap: () => _onSel(opcion),
+                  )),
             ]),
           ),
         ),

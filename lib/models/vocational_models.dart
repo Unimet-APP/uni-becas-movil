@@ -30,7 +30,11 @@ class VocationalQuestion {
 
   factory VocationalQuestion.fromJson(Map<String, dynamic> json) {
     final opciones = <String>[];
-    if (json['opciones_respuesta'] is List) {
+    if (json['instrucciones_respuesta'] is List) {
+      opciones.addAll(
+        (json['instrucciones_respuesta'] as List).map((e) => e.toString()),
+      );
+    } else if (json['opciones_respuesta'] is List) {
       opciones.addAll(
         (json['opciones_respuesta'] as List).map((e) => e.toString()),
       );
@@ -41,7 +45,7 @@ class VocationalQuestion {
     }
     return VocationalQuestion(
       id: (json['id'] ?? json['pregunta_id'] ?? '').toString(),
-      texto: (json['texto'] ?? json['pregunta'] ?? '').toString(),
+      texto: (json['texto'] ?? json['texto__pregunta'] ?? json['pregunta'] ?? '').toString(),
       opcionesRespuesta: opciones,
     );
   }

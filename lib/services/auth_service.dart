@@ -126,7 +126,8 @@ class AuthService {
 
       // Check if the response indicates failure
       if (response.statusCode != 200 && response.statusCode != 201) {
-        final errorMessage = response.data?['message'] ?? 'Error en el registro';
+        final errorMessage =
+            response.data?['message'] ?? 'Error en el registro';
         throw Exception(errorMessage);
       }
     } on DioException catch (e) {
