@@ -179,11 +179,12 @@ class _RegisterScreenState extends State<RegisterScreen>
                               const SizedBox(height: 20),
                               _buildDropdown(
                                 value: _selectedRole,
-                                label: 'Rol',
-                                icon: Icons.work,
+                                label: 'Tipo de cuenta',
+                                icon: Icons.person_pin_outlined,
                                 items: const [
-                                  DropdownMenuItem(value: 'estudiante', child: Text('Estudiante')),
+                                  DropdownMenuItem(value: 'estudiante', child: Text('Usuario')),
                                   DropdownMenuItem(value: 'supervisor', child: Text('Supervisor')),
+                                  DropdownMenuItem(value: 'aspirante', child: Text('Aspirante')),
                                 ],
                                 onChanged: (value) {
                                   setState(() {
@@ -335,6 +336,138 @@ class _RegisterScreenState extends State<RegisterScreen>
                                       _trimestre = value;
                                     });
                                   },
+                                ),
+                                const SizedBox(height: 16),
+                                _buildTextField(
+                                  controller: _emailController,
+                                  label: 'Correo Electrónico',
+                                  icon: Icons.email,
+                                  keyboardType: TextInputType.emailAddress,
+                                  validator: (value) {
+                                    if (value?.isEmpty ?? true) return 'Ingresa tu correo';
+                                    if (!value!.contains('@')) return 'Correo inválido';
+                                    return null;
+                                  },
+                                ),
+                                const SizedBox(height: 16),
+                                _buildPasswordField(
+                                  controller: _passwordController,
+                                  obscurePassword: _obscurePassword,
+                                  onToggleVisibility: () {
+                                    setState(() {
+                                      _obscurePassword = !_obscurePassword;
+                                    });
+                                  },
+                                  validator: (value) {
+                                    if (value?.isEmpty ?? true) return 'Ingresa tu contraseña';
+                                    if (value!.length < 6) return 'Mínimo 6 caracteres';
+                                    if (!RegExp(r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])').hasMatch(value)) {
+                                      return 'Debe incluir mayúscula, minúscula, número y símbolo';
+                                    }
+                                    return null;
+                                  },
+                                ),
+                                const SizedBox(height: 16),
+                                _buildPasswordField(
+                                  controller: _confirmPasswordController,
+                                  obscurePassword: _obscureConfirmPassword,
+                                  onToggleVisibility: () {
+                                    setState(() {
+                                      _obscureConfirmPassword = !_obscureConfirmPassword;
+                                    });
+                                  },
+                                  label: 'Confirmar Contraseña',
+                                  validator: (value) {
+                                    if (value?.isEmpty ?? true) return 'Confirma tu contraseña';
+                                    if (value != _passwordController.text) {
+                                      return 'Las contraseñas no coinciden';
+                                    }
+                                    return null;
+                                  },
+                                ),
+                              ],
+
+                              // Campos para Aspirante
+                              if (_selectedRole == 'aspirante') ...[
+                                _buildTextField(
+                                  controller: _nombreController,
+                                  label: 'Nombre',
+                                  icon: Icons.person,
+                                  validator: (value) =>
+                                      value?.isEmpty ?? true ? 'Ingresa tu nombre' : null,
+                                ),
+                                const SizedBox(height: 16),
+                                _buildTextField(
+                                  controller: _apellidoController,
+                                  label: 'Apellido',
+                                  icon: Icons.person_outline,
+                                  validator: (value) =>
+                                      value?.isEmpty ?? true ? 'Ingresa tu apellido' : null,
+                                ),
+                                const SizedBox(height: 16),
+                                // Cédula
+                                Row(
+                                  children: [
+                                    SizedBox(
+                                      width: 90,
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius: BorderRadius.circular(12),
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color: AppColors.primary.withOpacity(0.1),
+                                              blurRadius: 8,
+                                              offset: const Offset(0, 2),
+                                            ),
+                                          ],
+                                        ),
+                                        child: DropdownButtonFormField<String>(
+                                          initialValue: _tipoCedula,
+                                          decoration: InputDecoration(
+                                            labelText: 'Tipo',
+                                            contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 14),
+                                            border: OutlineInputBorder(
+                                              borderRadius: BorderRadius.circular(12),
+                                              borderSide: BorderSide.none,
+                                            ),
+                                          ),
+                                          items: const [
+                                            DropdownMenuItem(value: 'V', child: Text('V')),
+                                            DropdownMenuItem(value: 'E', child: Text('E')),
+                                          ],
+                                          onChanged: (value) {
+                                            setState(() => _tipoCedula = value!);
+                                          },
+                                        ),
+                                      ),
+                                    ),
+                                    const SizedBox(width: 12),
+                                    Expanded(
+                                      child: _buildTextField(
+                                        controller: _cedulaController,
+                                        label: 'Cédula',
+                                        icon: Icons.badge,
+                                        keyboardType: TextInputType.number,
+                                        validator: (value) {
+                                          if (value?.isEmpty ?? true) return 'Ingresa tu cédula';
+                                          if (!RegExp(r'^\d{7,8}$').hasMatch(value!)) {
+                                            return 'Ingresa 7 u 8 dígitos';
+                                          }
+                                          return null;
+                                        },
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(height: 16),
+                                _buildTextField(
+                                  controller: _telefonoController,
+                                  label: 'Teléfono',
+                                  icon: Icons.phone,
+                                  keyboardType: TextInputType.phone,
+                                  validator: (value) =>
+                                      value?.isEmpty ?? true ? 'Ingresa tu teléfono' : null,
                                 ),
                                 const SizedBox(height: 16),
                                 _buildTextField(
@@ -603,9 +736,9 @@ class _RegisterScreenState extends State<RegisterScreen>
                         );
 
                                       if (success && mounted) {
-                                        // Auto-login para estudiantes
-                                        if (_selectedRole == 'estudiante') {
-                                          print('🔐 Iniciando auto-login para estudiante...');
+                                        // Auto-login para estudiantes y aspirantes
+                                        if (_selectedRole == 'estudiante' || _selectedRole == 'aspirante') {
+                                          print('🔐 Iniciando auto-login para $_selectedRole...');
 
                                           final loginSuccess = await authProvider.login(email, password);
 
@@ -661,7 +794,7 @@ class _RegisterScreenState extends State<RegisterScreen>
                                             }
                                           }
                                         } else {
-                                          // Para admin y supervisor, mostrar mensaje de aprobación pendiente
+                                          // Para supervisor, mostrar mensaje de aprobación pendiente
                                           showDialog(
                                             context: context,
                                             builder: (context) => AlertDialog(
