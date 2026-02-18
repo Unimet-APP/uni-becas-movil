@@ -344,8 +344,9 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
                             print('🔄 Navegando después del login. Role: $role');
 
                             if (role != null) {
-                              // Si es admin, mostrar diálogo informativo
-                              if (role == 'admin') {
+                              // Si es admin o especialista, mostrar diálogo informativo
+                              if (role == 'admin' || role == 'especialista') {
+                                final isAdmin = role == 'admin';
                                 showDialog(
                                   context: context,
                                   barrierDismissible: false,
@@ -362,17 +363,17 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
                                               color: AppColors.primary.withOpacity(0.1),
                                               borderRadius: BorderRadius.circular(8),
                                             ),
-                                            child: const Icon(
-                                              Icons.admin_panel_settings,
+                                            child: Icon(
+                                              isAdmin ? Icons.admin_panel_settings : Icons.person_outline,
                                               color: AppColors.primary,
                                               size: 28,
                                             ),
                                           ),
                                           const SizedBox(width: 12),
-                                          const Expanded(
+                                          Expanded(
                                             child: Text(
-                                              'Acceso Administrativo',
-                                              style: TextStyle(
+                                              isAdmin ? 'Acceso Administrativo' : 'Acceso de Especialista',
+                                              style: const TextStyle(
                                                 fontSize: 20,
                                                 fontWeight: FontWeight.bold,
                                               ),
@@ -380,19 +381,21 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
                                           ),
                                         ],
                                       ),
-                                      content: const Column(
+                                      content: Column(
                                         mainAxisSize: MainAxisSize.min,
                                         crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
                                           Text(
-                                            'Para acceder a las funciones de administrador, es necesario utilizar la plataforma web.',
-                                            style: TextStyle(
+                                            isAdmin
+                                                ? 'Para acceder a las funciones de administrador, es necesario utilizar la plataforma web.'
+                                                : 'Para acceder a las funciones de especialista, es necesario utilizar la plataforma web.',
+                                            style: const TextStyle(
                                               fontSize: 16,
                                               height: 1.5,
                                             ),
                                           ),
-                                          SizedBox(height: 16),
-                                          Text(
+                                          const SizedBox(height: 16),
+                                          const Text(
                                             'La aplicación móvil está diseñada para estudiantes y postulantes.',
                                             style: TextStyle(
                                               fontSize: 14,

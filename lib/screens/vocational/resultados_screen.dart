@@ -319,14 +319,16 @@ class _RiasecBars extends StatelessWidget {
           return Padding(
             padding: const EdgeInsets.symmetric(vertical: 6),
             child: Row(children: [
-              SizedBox(
-                width: 28,
-                child: Text(d.codigo,
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: color,
-                        fontSize: 14)),
-              ),
+              if (d.codigo.length <= 2) ...[
+                SizedBox(
+                  width: 28,
+                  child: Text(d.codigo.toUpperCase(),
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: color,
+                          fontSize: 14)),
+                ),
+              ],
               Expanded(
                 child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,

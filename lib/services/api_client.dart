@@ -3,7 +3,11 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import '../utils/exceptions.dart';
 
 class ApiClient {
-  static const String baseUrl = 'http://localhost:3001/API';
+  static const String baseUrl =
+      String.fromEnvironment(
+        'API_BASE_URL',
+        defaultValue: 'http://localhost:3001/API',
+      );
   late Dio _dio;
   final FlutterSecureStorage _storage = const FlutterSecureStorage();
 

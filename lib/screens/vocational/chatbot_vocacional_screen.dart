@@ -17,6 +17,9 @@ class ChatbotVocacionalScreen extends StatelessWidget {
         appBar: AppBar(
           title: const Text('Chatbot Vocacional'),
           bottom: const TabBar(
+            labelColor: Colors.white,
+            unselectedLabelColor: Colors.white60,
+            indicatorColor: Colors.white,
             tabs: [
               Tab(icon: Icon(Icons.chat_bubble_outline), text: 'Chat'),
               Tab(icon: Icon(Icons.help_outline), text: 'Consulta'),
@@ -154,7 +157,8 @@ class _ChatTabState extends State<_ChatTab> {
             Expanded(
               child: TextField(
                 controller: _controller,
-                maxLines: null,
+                minLines: 1,
+                maxLines: 4,
                 keyboardType: TextInputType.multiline,
                 textInputAction: TextInputAction.newline,
                 enabled: !_loading,
@@ -191,10 +195,14 @@ class _ChatTabState extends State<_ChatTab> {
 class _ChatEmptyState extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Padding(
-        padding: const EdgeInsets.all(32),
-        child: Column(mainAxisSize: MainAxisSize.min, children: [
+    return LayoutBuilder(
+      builder: (context, constraints) => SingleChildScrollView(
+        child: ConstrainedBox(
+          constraints: BoxConstraints(minHeight: constraints.maxHeight),
+          child: Center(
+            child: Padding(
+              padding: const EdgeInsets.all(32),
+              child: Column(mainAxisSize: MainAxisSize.min, children: [
           Icon(Icons.smart_toy_outlined, size: 56, color: Colors.grey.shade300),
           const SizedBox(height: 16),
           const Text('Chat de Orientación Vocacional',
@@ -226,9 +234,12 @@ class _ChatEmptyState extends StatelessWidget {
                         color: AppColors.primary,
                         fontSize: 12)),
               )),
-        ]),
+          ]),
+        ),
       ),
-    );
+    ),
+  ),
+);
   }
 }
 
@@ -657,9 +668,17 @@ class _RecomendacionesResultado extends StatelessWidget {
     final sugerencias = resultado['sugerencias'] is List
         ? (resultado['sugerencias'] as List).cast<String>()
         : <String>[];
-    final carreras = resultado['carrerasRecomendadas'] is List
-        ? resultado['carrerasRecomendadas'] as List
+    final carrerasRaw = resultado['carrerasRecomendadas'] is List
+        ? List<dynamic>.from(resultado['carrerasRecomendadas'] as List)
         : <dynamic>[];
+    carrerasRaw.sort((a, b) {
+      final pa = (a is Map ? (a['puntuacion'] ?? 0) : 0);
+      final pb = (b is Map ? (b['puntuacion'] ?? 0) : 0);
+      final na = pa is num ? pa : num.tryParse(pa.toString()) ?? 0;
+      final nb = pb is num ? pb : num.tryParse(pb.toString()) ?? 0;
+      return nb.compareTo(na); // descending
+    });
+    final carreras = carrerasRaw;
 
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       // Análisis de perfil

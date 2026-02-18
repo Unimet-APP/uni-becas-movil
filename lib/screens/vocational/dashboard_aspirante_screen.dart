@@ -121,7 +121,7 @@ class _HomeTabState extends State<_HomeTab> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Orientación Vocacional'),
+        title: const Text('Portal UNIMET'),
         actions: [
           IconButton(
             icon: const Icon(Icons.logout),
@@ -149,30 +149,12 @@ class _HomeTabState extends State<_HomeTab> {
                       ?.copyWith(fontWeight: FontWeight.bold)),
               const SizedBox(height: 12),
               _DashModuleCard(
-                title: 'Tests vocacionales',
-                subtitle: 'Holland RIASEC e ICO con análisis de IA',
-                chip: 'Módulo principal',
-                icon: Icons.psychology,
-                color: Colors.deepPurple,
-                onTap: () => _goTo(const SelectTestScreen()),
-              ),
-              const SizedBox(height: 10),
-              _DashModuleCard(
                 title: 'Chatbot vocacional',
                 subtitle: 'Chat, consultas y recomendaciones con IA',
                 chip: 'Inteligencia Artificial',
                 icon: Icons.smart_toy_outlined,
                 color: Colors.indigo,
                 onTap: () => _goTo(const ChatbotVocacionalScreen()),
-              ),
-              const SizedBox(height: 10),
-              _DashModuleCard(
-                title: 'Mi perfil vocacional',
-                subtitle: 'Resultados consolidados de todos tus tests',
-                chip: 'Perfil',
-                icon: Icons.insert_chart,
-                color: Colors.teal,
-                onTap: () => _goTo(const PerfilVocacionalScreen()),
               ),
               const SizedBox(height: 10),
               _DashModuleCard(
@@ -1021,7 +1003,7 @@ class _PerfilTabState extends State<_PerfilTab> {
                   onTap: () => Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (_) => const SelectTestScreen())),
+                          builder: (_) => const SelectTestScreen(showAppBar: true))),
                 ),
               ],
             ),
@@ -1873,7 +1855,7 @@ class _HeroBanner extends StatelessWidget {
                   fontWeight: FontWeight.bold)),
           const SizedBox(height: 4),
           const Text(
-            'Descubre tu perfil vocacional y las carreras\nque mejor se alinean contigo.',
+            'Explora tu orientación vocacional\ny gestiona tus becas universitarias.',
             style: TextStyle(color: Colors.white70, fontSize: 13),
           ),
         ],

@@ -604,9 +604,6 @@ class PerfilVocacional {
         ? (data['historial'] as List).cast<Map<String, dynamic>>()
         : <Map<String, dynamic>>[];
 
-    // React uses historial.length (ALL entries) for total count
-    final totalHistorial = historial.length;
-
     // Find last completed session using broad filter (same as Historial.fromJson)
     bool isCompleted(Map<String, dynamic> h) {
       final e = (h['estado'] ?? '').toString().toLowerCase();
@@ -656,7 +653,7 @@ class PerfilVocacional {
       perfilSecundario: (src['perfilSecundario'] ?? '').toString(),
       codigoHolland: (src['codigoHolland'] ?? src['codigo_holland'] ?? '').toString(),
       nivelConfianza: RiasecDimension._toDouble(src['nivelConfianza'] ?? src['nivel_confianza'] ?? 0),
-      totalTests: totalHistorial > 0 ? totalHistorial : (int.tryParse((data['totalTests'] ?? 0).toString()) ?? 0),
+      totalTests: completados.isNotEmpty ? completados.length : (int.tryParse((data['totalTests'] ?? 0).toString()) ?? 0),
       dimensiones: parseDimensiones(puntuaciones ?? src['dimensiones'] ?? src['puntuaciones']),
       carrerasRecomendadas: (
         src['recomendacionesCarreras'] as List? ??
