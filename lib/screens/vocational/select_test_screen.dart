@@ -126,7 +126,11 @@ class _SelectTestScreenState extends State<SelectTestScreen> {
   }
 
   void _goTo(Widget screen) {
-    Navigator.of(context).push(MaterialPageRoute(builder: (_) => screen));
+    Navigator.of(context)
+        .push(MaterialPageRoute(builder: (_) => screen))
+        .then((_) {
+          if (mounted) { _cargarHistorial(); }
+        });
   }
 
   void _showError(String msg) {

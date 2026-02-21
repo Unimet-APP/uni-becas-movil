@@ -102,7 +102,11 @@ class _HomeTabState extends State<_HomeTab> {
   Future<void> _loadHistorial() async {
     try {
       final h = await _service.obtenerHistorial();
-      if (mounted) setState(() { _historial = h; _loading = false; });
+      if (mounted)
+        setState(() {
+          _historial = h;
+          _loading = false;
+        });
     } catch (_) {
       if (mounted) setState(() => _loading = false);
     }
@@ -372,8 +376,7 @@ class _TrayectoriaTabState extends State<_TrayectoriaTab> {
                           color: AppColors.info.withValues(alpha: 0.2)),
                     ),
                     child: const Row(children: [
-                      Icon(Icons.info_outline,
-                          color: AppColors.info, size: 20),
+                      Icon(Icons.info_outline, color: AppColors.info, size: 20),
                       SizedBox(width: 10),
                       Expanded(
                         child: Text(
@@ -402,8 +405,7 @@ class _TrayectoriaTabState extends State<_TrayectoriaTab> {
                           EdgeInsets.symmetric(horizontal: 12, vertical: 10),
                     ),
                     items: _gradoOpciones
-                        .map((g) =>
-                            DropdownMenuItem(value: g, child: Text(g)))
+                        .map((g) => DropdownMenuItem(value: g, child: Text(g)))
                         .toList(),
                     onChanged: (v) =>
                         setState(() => _trayectoria.gradoActual = v),
@@ -457,11 +459,9 @@ class _TrayectoriaTabState extends State<_TrayectoriaTab> {
                   // Actividades extracurriculares
                   _ChipListField(
                     label: 'Actividades extracurriculares',
-                    items:
-                        _trayectoria.actividadesExtracurriculares ?? [],
-                    onRemove: (i) => setState(() => _trayectoria
-                        .actividadesExtracurriculares!
-                        .removeAt(i)),
+                    items: _trayectoria.actividadesExtracurriculares ?? [],
+                    onRemove: (i) => setState(() =>
+                        _trayectoria.actividadesExtracurriculares!.removeAt(i)),
                     child: Row(children: [
                       Expanded(
                         child: TextField(
@@ -489,8 +489,8 @@ class _TrayectoriaTabState extends State<_TrayectoriaTab> {
                   _ChipListField(
                     label: 'Proyectos realizados',
                     items: _trayectoria.proyectosRealizados ?? [],
-                    onRemove: (i) => setState(() =>
-                        _trayectoria.proyectosRealizados!.removeAt(i)),
+                    onRemove: (i) => setState(
+                        () => _trayectoria.proyectosRealizados!.removeAt(i)),
                     child: Row(children: [
                       Expanded(
                         child: TextField(
@@ -521,8 +521,8 @@ class _TrayectoriaTabState extends State<_TrayectoriaTab> {
                   const SizedBox(height: 4),
                   const Text(
                     'Agrega materias con nota (0-20) por cada año/lapso.',
-                    style: TextStyle(
-                        fontSize: 12, color: AppColors.textSecondary),
+                    style:
+                        TextStyle(fontSize: 12, color: AppColors.textSecondary),
                   ),
                   const SizedBox(height: 10),
                   if (_getMaxAno() == 0)
@@ -541,8 +541,7 @@ class _TrayectoriaTabState extends State<_TrayectoriaTab> {
                           child: Text(
                             'Selecciona tu grado actual arriba para ver los años y lapsos.',
                             style: TextStyle(
-                                fontSize: 12,
-                                color: AppColors.textSecondary),
+                                fontSize: 12, color: AppColors.textSecondary),
                           ),
                         ),
                       ]),
@@ -643,8 +642,8 @@ class _NotificacionesTabState extends State<_NotificacionesTab> {
                       ?.isAfter(hoy.subtract(const Duration(days: 1))) ==
                   true)
           .toList()
-        ..sort(
-            (a, b) => a.fecha.compareTo(b.fecha) * 10 + a.hora.compareTo(b.hora));
+        ..sort((a, b) =>
+            a.fecha.compareTo(b.fecha) * 10 + a.hora.compareTo(b.hora));
 
       if (mounted) {
         setState(() {
@@ -725,8 +724,8 @@ class _NotificacionesTabState extends State<_NotificacionesTab> {
             );
           }
         });
-        ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Cita confirmada')));
+        ScaffoldMessenger.of(context)
+            .showSnackBar(const SnackBar(content: Text('Cita confirmada')));
       }
     } catch (e) {
       if (mounted) {
@@ -744,8 +743,8 @@ class _NotificacionesTabState extends State<_NotificacionesTab> {
       await _service.cancelarCita(citaId);
       if (mounted) {
         setState(() => _citas.removeWhere((c) => c.id == citaId));
-        ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Cita cancelada')));
+        ScaffoldMessenger.of(context)
+            .showSnackBar(const SnackBar(content: Text('Cita cancelada')));
       }
     } catch (e) {
       if (mounted) {
@@ -766,8 +765,7 @@ class _NotificacionesTabState extends State<_NotificacionesTab> {
           if (_sinLeer > 0) ...[
             const SizedBox(width: 8),
             Container(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 7, vertical: 2),
+              padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 2),
               decoration: BoxDecoration(
                   color: AppColors.error,
                   borderRadius: BorderRadius.circular(10)),
@@ -787,8 +785,7 @@ class _NotificacionesTabState extends State<_NotificacionesTab> {
               label: const Text('Leer todas',
                   style: TextStyle(fontSize: 12, color: Colors.white)),
             ),
-          IconButton(
-              icon: const Icon(Icons.refresh), onPressed: _cargar),
+          IconButton(icon: const Icon(Icons.refresh), onPressed: _cargar),
         ],
       ),
       body: _loading
@@ -826,22 +823,20 @@ class _NotificacionesTabState extends State<_NotificacionesTab> {
                       Center(
                         child: Padding(
                           padding: const EdgeInsets.symmetric(vertical: 40),
-                          child: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Icon(Icons.notifications_none,
-                                    size: 56, color: Colors.grey.shade300),
-                                const SizedBox(height: 16),
-                                const Text('No tienes notificaciones',
-                                    style: TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w600)),
-                                const SizedBox(height: 8),
-                                const Text(
-                                    'Los eventos y anuncios aparecerán aquí.',
-                                    style: TextStyle(
-                                        color: AppColors.textSecondary)),
-                              ]),
+                          child:
+                              Column(mainAxisSize: MainAxisSize.min, children: [
+                            Icon(Icons.notifications_none,
+                                size: 56, color: Colors.grey.shade300),
+                            const SizedBox(height: 16),
+                            const Text('No tienes notificaciones',
+                                style: TextStyle(
+                                    fontSize: 16, fontWeight: FontWeight.w600)),
+                            const SizedBox(height: 8),
+                            const Text(
+                                'Los eventos y anuncios aparecerán aquí.',
+                                style:
+                                    TextStyle(color: AppColors.textSecondary)),
+                          ]),
                         ),
                       )
                     else
@@ -883,7 +878,11 @@ class _PerfilTabState extends State<_PerfilTab> {
   Future<void> _cargarPerfil() async {
     try {
       final p = await _service.obtenerPerfilVocacional();
-      if (mounted) setState(() { _perfil = p; _loadingPerfil = false; });
+      if (mounted)
+        setState(() {
+          _perfil = p;
+          _loadingPerfil = false;
+        });
     } catch (_) {
       if (mounted) setState(() => _loadingPerfil = false);
     }
@@ -927,8 +926,8 @@ class _PerfilTabState extends State<_PerfilTab> {
                         ?.copyWith(color: AppColors.textSecondary)),
                 const SizedBox(height: 4),
                 Container(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 12, vertical: 4),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
                   decoration: BoxDecoration(
                     color: AppColors.primary.withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(20),
@@ -969,8 +968,7 @@ class _PerfilTabState extends State<_PerfilTab> {
                 if ((user?.carrera ?? '').isNotEmpty)
                   _InfoRow(label: 'Carrera', value: user!.carrera!),
                 if (user?.trimestre != null)
-                  _InfoRow(
-                      label: 'Trimestre', value: '${user!.trimestre}'),
+                  _InfoRow(label: 'Trimestre', value: '${user!.trimestre}'),
               ],
             ),
             const SizedBox(height: 16),
@@ -986,8 +984,7 @@ class _PerfilTabState extends State<_PerfilTab> {
                   onTap: () => Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (_) =>
-                              const PerfilVocacionalScreen())),
+                          builder: (_) => const PerfilVocacionalScreen())),
                 ),
                 _ActionRow(
                   label: 'Historial de tests',
@@ -1003,7 +1000,8 @@ class _PerfilTabState extends State<_PerfilTab> {
                   onTap: () => Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (_) => const SelectTestScreen(showAppBar: true))),
+                          builder: (_) =>
+                              const SelectTestScreen(showAppBar: true))),
                 ),
               ],
             ),
@@ -1011,8 +1009,7 @@ class _PerfilTabState extends State<_PerfilTab> {
 
             // Convertir aspirante a estudiante
             if (user?.role == 'aspirante')
-              _ConvertirEstudianteBtn(
-                  service: _service, auth: auth),
+              _ConvertirEstudianteBtn(service: _service, auth: auth),
             const SizedBox(height: 16),
 
             // Cerrar sesión
@@ -1023,8 +1020,7 @@ class _PerfilTabState extends State<_PerfilTab> {
                   await auth.logout();
                   if (context.mounted) {
                     Navigator.of(context).pushAndRemoveUntil(
-                      MaterialPageRoute(
-                          builder: (_) => const WelcomeScreen()),
+                      MaterialPageRoute(builder: (_) => const WelcomeScreen()),
                       (_) => false,
                     );
                   }
@@ -1046,10 +1042,8 @@ class _PerfilTabState extends State<_PerfilTab> {
   }
 
   String _initials(String? nombre, String? apellido) {
-    final n =
-        (nombre ?? '').isNotEmpty ? nombre![0].toUpperCase() : '';
-    final a =
-        (apellido ?? '').isNotEmpty ? apellido![0].toUpperCase() : '';
+    final n = (nombre ?? '').isNotEmpty ? nombre![0].toUpperCase() : '';
+    final a = (apellido ?? '').isNotEmpty ? apellido![0].toUpperCase() : '';
     return '$n$a';
   }
 
@@ -1091,13 +1085,10 @@ class _VocationalSummaryCard extends StatelessWidget {
         const SizedBox(height: 10),
         Wrap(spacing: 8, runSpacing: 8, children: [
           if (perfil.perfilDominante.isNotEmpty)
-            _Badge(
-                label: perfil.perfilDominante,
-                color: AppColors.primary),
+            _Badge(label: perfil.perfilDominante, color: AppColors.primary),
           if (perfil.codigoHolland.isNotEmpty)
             _Badge(
-                label: 'Código: ${perfil.codigoHolland}',
-                color: Colors.orange),
+                label: 'Código: ${perfil.codigoHolland}', color: Colors.orange),
         ]),
         if (perfil.perfilSecundario.isNotEmpty) ...[
           const SizedBox(height: 6),
@@ -1107,8 +1098,7 @@ class _VocationalSummaryCard extends StatelessWidget {
         ],
         const SizedBox(height: 8),
         Row(children: [
-          Icon(Icons.check_circle_outline,
-              size: 16, color: AppColors.success),
+          Icon(Icons.check_circle_outline, size: 16, color: AppColors.success),
           const SizedBox(width: 6),
           Text(
               '${perfil.totalTests} test${perfil.totalTests == 1 ? '' : 's'} completado${perfil.totalTests == 1 ? '' : 's'}',
@@ -1146,8 +1136,7 @@ class _Badge extends StatelessWidget {
 class _ConvertirEstudianteBtn extends StatelessWidget {
   final VocationalService service;
   final AuthProvider auth;
-  const _ConvertirEstudianteBtn(
-      {required this.service, required this.auth});
+  const _ConvertirEstudianteBtn({required this.service, required this.auth});
 
   @override
   Widget build(BuildContext context) {
@@ -1161,16 +1150,14 @@ class _ConvertirEstudianteBtn extends StatelessWidget {
           children: [
             Text('Pasar a estudiante',
                 style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: Color(0xFFC45A1A))),
+                    fontWeight: FontWeight.bold, color: Color(0xFFC45A1A))),
             Text('Universidad Metropolitana',
-                style: TextStyle(
-                    fontSize: 11, color: AppColors.textSecondary)),
+                style: TextStyle(fontSize: 11, color: AppColors.textSecondary)),
           ],
         ),
         style: OutlinedButton.styleFrom(
-          side: BorderSide(
-              color: const Color(0xFFF37021).withValues(alpha: 0.4)),
+          side:
+              BorderSide(color: const Color(0xFFF37021).withValues(alpha: 0.4)),
           padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 16),
           backgroundColor: Colors.orange.shade50,
         ),
@@ -1195,8 +1182,8 @@ class _ConvertirEstudianteBtn extends StatelessWidget {
               children: [
                 const Text(
                   'Ingresa tu correo institucional para actualizar tu cuenta.',
-                  style: TextStyle(
-                      fontSize: 13, color: AppColors.textSecondary),
+                  style:
+                      TextStyle(fontSize: 13, color: AppColors.textSecondary),
                 ),
                 const SizedBox(height: 16),
                 TextField(
@@ -1243,25 +1230,22 @@ class _ConvertirEstudianteBtn extends StatelessWidget {
                       if (email.isEmpty) {
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(
-                              content: Text(
-                                  'Ingresa tu email institucional')),
+                              content: Text('Ingresa tu email institucional')),
                         );
                         return;
                       }
-                      if (!email
-                          .endsWith('@correo.unimet.edu.ve')) {
+                      if (!email.endsWith('@correo.unimet.edu.ve')) {
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(
-                              content: Text(
-                                  'Usa tu correo @correo.unimet.edu.ve')),
+                              content:
+                                  Text('Usa tu correo @correo.unimet.edu.ve')),
                         );
                         return;
                       }
                       setDialogState(() => loading = true);
                       try {
-                        final trimestre = int.tryParse(
-                                trimestreCtrl.text.trim()) ??
-                            1;
+                        final trimestre =
+                            int.tryParse(trimestreCtrl.text.trim()) ?? 1;
                         await service.convertirAspiranteAEstudiante(
                           email: email,
                           carrera: carreraCtrl.text.trim(),
@@ -1319,7 +1303,8 @@ class _CitaCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final parts = cita.fecha.split('-');
-    final month = parts.length >= 2 ? _mesCorto(int.tryParse(parts[1]) ?? 0) : '';
+    final month =
+        parts.length >= 2 ? _mesCorto(int.tryParse(parts[1]) ?? 0) : '';
     final day = parts.length >= 3 ? parts[2] : '';
 
     return Container(
@@ -1327,8 +1312,7 @@ class _CitaCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(
-            color: AppColors.primary.withValues(alpha: 0.2)),
+        border: Border.all(color: AppColors.primary.withValues(alpha: 0.2)),
       ),
       child: Column(children: [
         Container(
@@ -1337,8 +1321,7 @@ class _CitaCard extends StatelessWidget {
             color: cita.estado == 'confirmada'
                 ? AppColors.success
                 : AppColors.primary,
-            borderRadius: const BorderRadius.vertical(
-                top: Radius.circular(12)),
+            borderRadius: const BorderRadius.vertical(top: Radius.circular(12)),
           ),
         ),
         Padding(
@@ -1347,8 +1330,8 @@ class _CitaCard extends StatelessWidget {
             Row(children: [
               // Date box
               Container(
-                padding: const EdgeInsets.symmetric(
-                    horizontal: 10, vertical: 6),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
                 decoration: BoxDecoration(
                   color: Colors.grey.shade100,
                   borderRadius: BorderRadius.circular(8),
@@ -1374,20 +1357,17 @@ class _CitaCard extends StatelessWidget {
                               fontWeight: FontWeight.bold, fontSize: 14)),
                       Text('${cita.hora} · ${cita.modalidadLabel}',
                           style: const TextStyle(
-                              fontSize: 12,
-                              color: AppColors.textSecondary)),
+                              fontSize: 12, color: AppColors.textSecondary)),
                       if (cita.especialista != null)
                         Text(
                           'Con ${cita.especialista!['nombre'] ?? ''} ${cita.especialista!['apellido'] ?? ''}',
                           style: const TextStyle(
-                              fontSize: 11,
-                              color: AppColors.textSecondary),
+                              fontSize: 11, color: AppColors.textSecondary),
                         ),
                     ]),
               ),
               Container(
-                padding: const EdgeInsets.symmetric(
-                    horizontal: 8, vertical: 3),
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
                 decoration: BoxDecoration(
                   color: cita.estado == 'confirmada'
                       ? AppColors.success.withValues(alpha: 0.1)
@@ -1395,9 +1375,7 @@ class _CitaCard extends StatelessWidget {
                   borderRadius: BorderRadius.circular(20),
                 ),
                 child: Text(
-                  cita.estado == 'confirmada'
-                      ? 'Confirmada'
-                      : 'Pendiente',
+                  cita.estado == 'confirmada' ? 'Confirmada' : 'Pendiente',
                   style: TextStyle(
                     fontSize: 11,
                     fontWeight: FontWeight.w600,
@@ -1427,8 +1405,7 @@ class _CitaCard extends StatelessWidget {
                               height: 14,
                               width: 14,
                               child: CircularProgressIndicator(
-                                  strokeWidth: 2,
-                                  color: Colors.white))
+                                  strokeWidth: 2, color: Colors.white))
                           : const Text('Confirmar',
                               style: TextStyle(fontSize: 12)),
                     ),
@@ -1451,12 +1428,10 @@ class _CitaCard extends StatelessWidget {
                               height: 14,
                               width: 14,
                               child: CircularProgressIndicator(
-                                  strokeWidth: 2,
-                                  color: AppColors.error))
+                                  strokeWidth: 2, color: AppColors.error))
                           : const Text('Cancelar',
                               style: TextStyle(
-                                  fontSize: 12,
-                                  color: AppColors.error)),
+                                  fontSize: 12, color: AppColors.error)),
                     ),
                   ),
                 ),
@@ -1470,8 +1445,19 @@ class _CitaCard extends StatelessWidget {
 
   String _mesCorto(int m) {
     const meses = [
-      '', 'ENE', 'FEB', 'MAR', 'ABR', 'MAY', 'JUN',
-      'JUL', 'AGO', 'SEP', 'OCT', 'NOV', 'DIC'
+      '',
+      'ENE',
+      'FEB',
+      'MAR',
+      'ABR',
+      'MAY',
+      'JUN',
+      'JUL',
+      'AGO',
+      'SEP',
+      'OCT',
+      'NOV',
+      'DIC'
     ];
     return (m >= 1 && m <= 12) ? meses[m] : '';
   }
@@ -1519,88 +1505,82 @@ class _NotifCard extends StatelessWidget {
                 : color.withValues(alpha: 0.3),
           ),
         ),
-        child:
-            Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        child: Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
           Container(
             padding: const EdgeInsets.all(8),
             decoration: BoxDecoration(
               color: color.withValues(alpha: 0.12),
               shape: BoxShape.circle,
             ),
-            child: Icon(_iconForTipo(notif.tipo),
-                color: color, size: 20),
+            child: Icon(_iconForTipo(notif.tipo), color: color, size: 20),
           ),
           const SizedBox(width: 12),
           Expanded(
-            child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(children: [
-                    Expanded(
-                      child: Text(notif.titulo,
-                          style: TextStyle(
-                              fontWeight: notif.leido
-                                  ? FontWeight.w500
-                                  : FontWeight.w700,
-                              fontSize: 14)),
-                    ),
-                    if (!notif.leido)
-                      Container(
-                        width: 8,
-                        height: 8,
-                        decoration: BoxDecoration(
-                            color: color, shape: BoxShape.circle),
+            child:
+                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              Row(children: [
+                Expanded(
+                  child: Text(notif.titulo,
+                      style: TextStyle(
+                          fontWeight:
+                              notif.leido ? FontWeight.w500 : FontWeight.w700,
+                          fontSize: 14)),
+                ),
+                if (!notif.leido)
+                  Container(
+                    width: 8,
+                    height: 8,
+                    decoration:
+                        BoxDecoration(color: color, shape: BoxShape.circle),
+                  ),
+              ]),
+              const SizedBox(height: 4),
+              Text(plainMsg,
+                  style: const TextStyle(
+                      fontSize: 13,
+                      color: AppColors.textSecondary,
+                      height: 1.4),
+                  maxLines: 4,
+                  overflow: TextOverflow.ellipsis),
+              const SizedBox(height: 6),
+              Row(children: [
+                Icon(Icons.access_time, size: 12, color: Colors.grey.shade400),
+                const SizedBox(width: 4),
+                Expanded(
+                  child: Text(_formatFecha(notif.fecha),
+                      style:
+                          TextStyle(fontSize: 11, color: Colors.grey.shade500)),
+                ),
+                // CTA button if urlAccion exists
+                if ((notif.urlAccion ?? '').isNotEmpty)
+                  InkWell(
+                    onTap: () async {
+                      final uri = Uri.tryParse(notif.urlAccion!);
+                      if (uri != null && await canLaunchUrl(uri)) {
+                        await launchUrl(uri,
+                            mode: LaunchMode.externalApplication);
+                      }
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 10, vertical: 4),
+                      decoration: BoxDecoration(
+                        color: color.withValues(alpha: 0.1),
+                        borderRadius: BorderRadius.circular(20),
                       ),
-                  ]),
-                  const SizedBox(height: 4),
-                  Text(plainMsg,
-                      style: const TextStyle(
-                          fontSize: 13,
-                          color: AppColors.textSecondary,
-                          height: 1.4),
-                      maxLines: 4,
-                      overflow: TextOverflow.ellipsis),
-                  const SizedBox(height: 6),
-                  Row(children: [
-                    Icon(Icons.access_time,
-                        size: 12, color: Colors.grey.shade400),
-                    const SizedBox(width: 4),
-                    Expanded(
-                      child: Text(_formatFecha(notif.fecha),
-                          style: TextStyle(
-                              fontSize: 11,
-                              color: Colors.grey.shade500)),
+                      child: Row(mainAxisSize: MainAxisSize.min, children: [
+                        Icon(Icons.open_in_new, size: 12, color: color),
+                        const SizedBox(width: 4),
+                        Text(notif.ctaTexto ?? 'Ver más',
+                            style: TextStyle(
+                                fontSize: 11,
+                                fontWeight: FontWeight.w600,
+                                color: color)),
+                      ]),
                     ),
-                    // CTA button if urlAccion exists
-                    if ((notif.urlAccion ?? '').isNotEmpty)
-                      InkWell(
-                        onTap: () async {
-                          final uri = Uri.tryParse(notif.urlAccion!);
-                          if (uri != null && await canLaunchUrl(uri)) {
-                            await launchUrl(uri,
-                                mode: LaunchMode.externalApplication);
-                          }
-                        },
-                        child: Container(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 10, vertical: 4),
-                          decoration: BoxDecoration(
-                            color: color.withValues(alpha: 0.1),
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          child: Row(mainAxisSize: MainAxisSize.min, children: [
-                            Icon(Icons.open_in_new, size: 12, color: color),
-                            const SizedBox(width: 4),
-                            Text(notif.ctaTexto ?? 'Ver más',
-                                style: TextStyle(
-                                    fontSize: 11,
-                                    fontWeight: FontWeight.w600,
-                                    color: color)),
-                          ]),
-                        ),
-                      ),
-                  ]),
-                ]),
+                  ),
+              ]),
+            ]),
           ),
         ]),
       ),
@@ -1678,8 +1658,7 @@ class _AnoLapsoCardState extends State<_AnoLapsoCard> {
   }
 
   TextEditingController _getNotaCtrl(String lapso) {
-    return _notaControllers.putIfAbsent(
-        lapso, () => TextEditingController());
+    return _notaControllers.putIfAbsent(lapso, () => TextEditingController());
   }
 
   List<MateriaNota> _getMaterias(String lapso) {
@@ -1764,11 +1743,9 @@ class _AnoLapsoCardState extends State<_AnoLapsoCard> {
                                     style: const TextStyle(fontSize: 13)),
                               ),
                               InkWell(
-                                onTap: () =>
-                                    _removeMateria(lapso, e.key),
+                                onTap: () => _removeMateria(lapso, e.key),
                                 child: Icon(Icons.close,
-                                    size: 14,
-                                    color: Colors.grey.shade400),
+                                    size: 14, color: Colors.grey.shade400),
                               ),
                             ]),
                           )),
@@ -1927,8 +1904,8 @@ class _StatChip extends StatelessWidget {
             style: TextStyle(
                 color: color, fontWeight: FontWeight.bold, fontSize: 18)),
         Text(label,
-            style: const TextStyle(
-                color: AppColors.textSecondary, fontSize: 12)),
+            style:
+                const TextStyle(color: AppColors.textSecondary, fontSize: 12)),
       ]),
     ]);
   }
@@ -1977,8 +1954,7 @@ class _DashModuleCard extends StatelessWidget {
             child:
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
                 decoration: BoxDecoration(
                   color: color.withValues(alpha: 0.08),
                   borderRadius: BorderRadius.circular(20),
@@ -2029,8 +2005,8 @@ class _InfoCard extends StatelessWidget {
           Icon(icon, size: 18, color: AppColors.primary),
           const SizedBox(width: 8),
           Text(title,
-              style: const TextStyle(
-                  fontWeight: FontWeight.w700, fontSize: 15)),
+              style:
+                  const TextStyle(fontWeight: FontWeight.w700, fontSize: 15)),
         ]),
         const SizedBox(height: 12),
         ...items,
@@ -2057,8 +2033,8 @@ class _InfoRow extends StatelessWidget {
         ),
         Expanded(
           child: Text(value,
-              style: const TextStyle(
-                  fontSize: 13, fontWeight: FontWeight.w500)),
+              style:
+                  const TextStyle(fontSize: 13, fontWeight: FontWeight.w500)),
         ),
       ]),
     );
@@ -2094,34 +2070,52 @@ class _ActionRow extends StatelessWidget {
 
 Color _colorForTipo(String tipo) {
   switch (tipo) {
-    case 'evento': return const Color(0xFF2196F3);
-    case 'anuncio': return const Color(0xFF9C27B0);
-    case 'recordatorio': return const Color(0xFFFF9800);
-    case 'campana': return const Color(0xFF4CAF50);
-    case 'mensaje': return const Color(0xFFE91E63);
-    default: return AppColors.textSecondary;
+    case 'evento':
+      return const Color(0xFF2196F3);
+    case 'anuncio':
+      return const Color(0xFF9C27B0);
+    case 'recordatorio':
+      return const Color(0xFFFF9800);
+    case 'campana':
+      return const Color(0xFF4CAF50);
+    case 'mensaje':
+      return const Color(0xFFE91E63);
+    default:
+      return AppColors.textSecondary;
   }
 }
 
 Color _bgForTipo(String tipo) {
   switch (tipo) {
-    case 'evento': return const Color(0xFFE3F2FD);
-    case 'anuncio': return const Color(0xFFF3E5F5);
-    case 'recordatorio': return const Color(0xFFFFF3E0);
-    case 'campana': return const Color(0xFFE8F5E9);
-    case 'mensaje': return const Color(0xFFFCE4EC);
-    default: return const Color(0xFFF5F5F5);
+    case 'evento':
+      return const Color(0xFFE3F2FD);
+    case 'anuncio':
+      return const Color(0xFFF3E5F5);
+    case 'recordatorio':
+      return const Color(0xFFFFF3E0);
+    case 'campana':
+      return const Color(0xFFE8F5E9);
+    case 'mensaje':
+      return const Color(0xFFFCE4EC);
+    default:
+      return const Color(0xFFF5F5F5);
   }
 }
 
 IconData _iconForTipo(String tipo) {
   switch (tipo) {
-    case 'evento': return Icons.event;
-    case 'anuncio': return Icons.campaign;
-    case 'recordatorio': return Icons.alarm;
-    case 'campana': return Icons.mail_outline;
-    case 'mensaje': return Icons.message_outlined;
-    default: return Icons.notifications_outlined;
+    case 'evento':
+      return Icons.event;
+    case 'anuncio':
+      return Icons.campaign;
+    case 'recordatorio':
+      return Icons.alarm;
+    case 'campana':
+      return Icons.mail_outline;
+    case 'mensaje':
+      return Icons.message_outlined;
+    default:
+      return Icons.notifications_outlined;
   }
 }
 
