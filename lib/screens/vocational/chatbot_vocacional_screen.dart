@@ -39,6 +39,44 @@ class ChatbotVocacionalScreen extends StatelessWidget {
   }
 }
 
+// ─── Suggestion data ─────────────────────────────────────────────────────────
+
+class _Suggestion {
+  final String label;
+  final String texto;
+  final IconData icon;
+  const _Suggestion(
+      {required this.label, required this.texto, required this.icon});
+}
+
+const _kSugeridas = [
+  _Suggestion(
+    label: 'Carreras disponibles',
+    texto: '¿Qué carreras tiene la UNIMET?',
+    icon: Icons.school_outlined,
+  ),
+  _Suggestion(
+    label: 'Mi resultado de test',
+    texto: '¿Qué me recomiendas según mi resultado de test?',
+    icon: Icons.assignment_outlined,
+  ),
+  _Suggestion(
+    label: 'Información de admisión',
+    texto: '¿Cuáles son las vías de ingreso a la UNIMET?',
+    icon: Icons.location_on_outlined,
+  ),
+  _Suggestion(
+    label: 'Fecha del PDU',
+    texto: '¿Cuándo es la próxima fecha del PDU?',
+    icon: Icons.calendar_today_outlined,
+  ),
+  _Suggestion(
+    label: 'Contacto',
+    texto: '¿A quién puedo contactar para información de becas?',
+    icon: Icons.phone_outlined,
+  ),
+];
+
 // ─── Tab 1: Chat conversacional ───────────────────────────────────────────────
 
 class _ChatMessage {
@@ -72,8 +110,7 @@ class _ChatTabState extends State<_ChatTab> {
     super.dispose();
   }
 
-  Future<void> _enviar() async {
-    final texto = _controller.text.trim();
+  Future<void> _enviarMensaje(String texto) async {
     if (texto.isEmpty || _loading) return;
 
     setState(() {
@@ -81,7 +118,6 @@ class _ChatTabState extends State<_ChatTab> {
       _error = null;
       _loading = true;
     });
-    _controller.clear();
     _scrollToBottom();
 
     try {
@@ -99,6 +135,19 @@ class _ChatTabState extends State<_ChatTab> {
     } catch (e) {
       if (mounted) setState(() { _error = e.toString(); _loading = false; });
     }
+  }
+
+  Future<void> _enviar() async {
+    final texto = _controller.text.trim();
+    _controller.clear();
+    await _enviarMensaje(texto);
+  }
+
+  void _limpiarChat() {
+    setState(() {
+      _mensajes.clear();
+      _error = null;
+    });
   }
 
   void _scrollToBottom() {
@@ -120,17 +169,50 @@ class _ChatTabState extends State<_ChatTab> {
         // Messages area
         Expanded(
           child: _mensajes.isEmpty
-              ? _ChatEmptyState()
-              : ListView.builder(
-                  controller: _scroll,
-                  padding: const EdgeInsets.all(16),
-                  itemCount: _mensajes.length + (_loading ? 1 : 0),
-                  itemBuilder: (ctx, i) {
-                    if (i == _mensajes.length) {
-                      return _TypingIndicator();
-                    }
-                    return _ChatBubble(msg: _mensajes[i]);
-                  },
+              ? _ChatEmptyState(onSuggestionTap: _enviarMensaje)
+              : Column(
+                  children: [
+                    // Limpiar button — visible only when there are messages
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 12, vertical: 4),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        border: Border(
+                            bottom:
+                                BorderSide(color: Colors.grey.shade200)),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          TextButton.icon(
+                            onPressed: _limpiarChat,
+                            icon: const Icon(Icons.delete_outline, size: 16),
+                            label: const Text('Limpiar',
+                                style: TextStyle(fontSize: 12)),
+                            style: TextButton.styleFrom(
+                              foregroundColor: Colors.grey.shade600,
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 8, vertical: 4),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Expanded(
+                      child: ListView.builder(
+                        controller: _scroll,
+                        padding: const EdgeInsets.all(16),
+                        itemCount: _mensajes.length + (_loading ? 1 : 0),
+                        itemBuilder: (ctx, i) {
+                          if (i == _mensajes.length) {
+                            return _TypingIndicator();
+                          }
+                          return _ChatBubble(msg: _mensajes[i]);
+                        },
+                      ),
+                    ),
+                  ],
                 ),
         ),
 
@@ -173,7 +255,7 @@ class _ChatTabState extends State<_ChatTab> {
                   filled: true,
                   fillColor: Colors.grey.shade50,
                 ),
-                onSubmitted: (_loading) ? null : (_) => _enviar(),
+                onSubmitted: _loading ? null : (_) => _enviar(),
               ),
             ),
             const SizedBox(width: 8),
@@ -193,6 +275,9 @@ class _ChatTabState extends State<_ChatTab> {
 }
 
 class _ChatEmptyState extends StatelessWidget {
+  final void Function(String) onSuggestionTap;
+  const _ChatEmptyState({required this.onSuggestionTap});
+
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
@@ -203,43 +288,94 @@ class _ChatEmptyState extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.all(32),
               child: Column(mainAxisSize: MainAxisSize.min, children: [
-          Icon(Icons.smart_toy_outlined, size: 56, color: Colors.grey.shade300),
-          const SizedBox(height: 16),
-          const Text('Chat de Orientación Vocacional',
-              textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-          const SizedBox(height: 8),
-          Text(
-            'Haz preguntas sobre carreras,\norientación vocacional y más.',
-            textAlign: TextAlign.center,
-            style: TextStyle(color: Colors.grey.shade600, fontSize: 13),
-          ),
-          const SizedBox(height: 20),
-          ...const [
-            '¿Qué carrera me recomiendas si me gusta la tecnología?',
-            '¿Cuál es la diferencia entre Ingeniería y Sistemas?',
-            '¿Qué habilidades necesito para estudiar Derecho?',
-          ].map((q) => Container(
-                margin: const EdgeInsets.only(bottom: 8),
-                padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
-                decoration: BoxDecoration(
-                  color: AppColors.primary.withValues(alpha: 0.07),
-                  borderRadius: BorderRadius.circular(20),
-                  border: Border.all(
-                      color: AppColors.primary.withValues(alpha: 0.2)),
+                CircleAvatar(
+                  radius: 32,
+                  backgroundColor: AppColors.primary.withValues(alpha: 0.1),
+                  child: const Icon(Icons.smart_toy_outlined,
+                      size: 36, color: AppColors.primary),
                 ),
-                child: Text(q,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                        color: AppColors.primary,
-                        fontSize: 12)),
-              )),
-          ]),
+                const SizedBox(height: 16),
+                const Text(
+                  'Hola, soy tu asistente de orientación vocacional',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
+                ),
+                const SizedBox(height: 4),
+                const Text(
+                  'de la Universidad Metropolitana.',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.w600,
+                    color: AppColors.primary,
+                  ),
+                ),
+                const SizedBox(height: 10),
+                Text(
+                  'Puedo ayudarte con información sobre carreras, resultados\nde tu test vocacional, fechas de admisión y más.',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(color: Colors.grey.shade600, fontSize: 13),
+                ),
+                const SizedBox(height: 24),
+                Wrap(
+                  spacing: 8,
+                  runSpacing: 8,
+                  alignment: WrapAlignment.center,
+                  children: _kSugeridas
+                      .map((s) => _SuggestionChip(
+                            suggestion: s,
+                            onTap: () => onSuggestionTap(s.texto),
+                          ))
+                      .toList(),
+                ),
+              ]),
+            ),
+          ),
         ),
       ),
-    ),
-  ),
-);
+    );
+  }
+}
+
+class _SuggestionChip extends StatelessWidget {
+  final _Suggestion suggestion;
+  final VoidCallback onTap;
+  const _SuggestionChip({required this.suggestion, required this.onTap});
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        padding:
+            const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(20),
+          border:
+              Border.all(color: AppColors.primary.withValues(alpha: 0.3)),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withValues(alpha: 0.04),
+              blurRadius: 4,
+              offset: const Offset(0, 2),
+            ),
+          ],
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(suggestion.icon, size: 15, color: AppColors.primary),
+            const SizedBox(width: 6),
+            Text(
+              suggestion.label,
+              style:
+                  TextStyle(fontSize: 12, color: Colors.grey.shade800),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
 
